@@ -1,0 +1,92 @@
+#
+# Container Image
+#
+container:
+  image:
+    registry: "adcubum.adcr.io"
+  timezone: "Europe/Zurich"
+
+
+application:
+  # The proxy URL to the backend service.
+  backendService: ""
+  # This directive is responsible for letting our virtual server know how many workers to spawn once it has become bound to the proper IP and port(s). It is common practice to run 1 worker process per core.
+  workerProcesses: 1
+  # The worker_connections command tells our worker processes how many people can simultaneously be served by Nginx
+  workerConnections: 1024
+  # This handles the client buffer size, meaning any POST actions sent to Nginx. POST actions are typically form submissions.
+  clientBodyBufferSize: 16k
+  # Similar to the previous directive, only instead it handles the client header size. For all intents and purposes, 1K is usually a decent size for this directive.
+  clientHeaderBufferSize: 1m
+  # The maximum allowed size for a client request. If the maximum size is exceeded, then Nginx will spit out a 413 error or Request Entity Too Large.
+  clientMaxBodySize: 8m
+  # The maximum number and size of buffers for large client headers.
+  largeClientHeaderBuffers: 4 32k
+  # The client_body_timeout and client_header_timeout directives are responsible for the time a server will wait for a client body or client header to be sent after request. If neither a body or header is sent, the server will issue a 408 error or Request time out.
+  clientBodyTimeout: 60
+  clientHeaderTimeout: 60
+  # The keepalive_timeout assigns the timeout for keep-alive connections with the client. Simply put, Nginx will close connections with the client after this period of time.
+  keepaliveTimeout: 65
+  # the send_timeout is established not on the entire transfer of answer, but only between two operations of reading; if after this time client will take nothing, then Nginx is shutting down the connection.
+  sendTimeout: 30
+  ingress:
+  #timeout: 30
+
+#
+# Scaling
+#
+# number of pods for this application
+replicas: 1
+
+#
+# Resources
+#
+resources:
+  # see: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container
+
+  # resource limits, the pod may not exceed
+  limits:
+    cpu: "1000m"
+    memory: "100M"
+
+  # requested resource allocation for the pod
+  requests:
+    cpu: "200m"
+    memory: "20M"
+
+#
+# Scheduling Control
+#
+
+# Note: The following properties provide capabilities to control the scheduling process of this application.
+#       Please consult the official Kubernetes documentation which is referenced in the property description and
+#       do not mix the different concepts.
+
+# NodeName specifies the name of a specific node on which this application must be scheduled on.
+# For more details, see https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
+nodeName: ""
+
+# NodeSelector specifies a set of labels which must match on the target node.
+# For more details, see https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
+nodeSelector: {}
+#   key1: value1
+#   key2: value2
+
+# Affinity specifies fine-grained scheduling constraints for the target node.
+# For more details, see https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
+affinity: {}
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#       - matchExpressions:
+#         - key: "key"
+#           operator: In
+#           values:
+#           - "value"
+
+# Tolerations specifies whether or not this application can be scheduled on special tainted nodes.
+# For more details, see https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
+tolerations: []
+# - key: "key"
+#   operator: "Equal|Exists"
+#   effect: "NoSchedule|PreferNoSchedule|NoExecute(1.6 only)"

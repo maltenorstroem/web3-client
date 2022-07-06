@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="Description" content="Purpose: To force a request to the WAF if the meeting is no longer valid. The WAF MUST reply with a redirect to the login screen.">
+  <title>Auth</title>
+  <base id="base" href="/">
+</head>
+<script>
+  /**
+   * If you need to work with sub directories, set the regex to the path of your app
+   * The example accepts /any/folder/dist with dist as the deepest folder where your app lies.
+   */
+  const matches = window.location.pathname.match(/^(.*)@APPLICATION_ID@/);
+  if (matches !== null) {
+    [window.APPROOT] = matches;
+    const b = document.getElementById("base");
+    b.setAttribute("href", `${window.APPROOT}/`);
+  } else {
+    window.APPROOT = "";
+  }
+  window.location.href = `${window.APPROOT}/`;
+</script>
+<body>
+</body>
+</html>

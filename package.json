@@ -1,0 +1,112 @@
+{
+  "name": "web-3-garage",
+  "version": "1.0.0",
+  "description": "Web3 Lab",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "UNLICENSED",
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "main": "",
+  "scripts": {
+    "start:mock": "concurrently --kill-others \"web-dev-server --open\" \"./scripts/mock.sh\"",
+    "start:bff": "web-dev-server --open",
+    "start:build": "web-dev-server --config web-dev-server-build.config.mjs",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "st4:gen": "adc-gen-translation",
+    "test": "web-test-runner  --coverage",
+    "test:watch": "web-test-runner  --watch",
+    "build": "rimraf dist && rollup -c rollup.config.js",
+    "lint:eslint-fix": "eslint --fix \"**/*.js\" --ignore-path .gitignore",
+    "format:eslint": "eslint \"**/*.js\" --fix --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.js\" --write --ignore-path .gitignore",
+    "lint:eslint": "eslint \"**/*.js\" --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.js\" --check --ignore-path .gitignore"
+  },
+  "prettier": "@open-wc/prettier-config",
+  "eslintConfig": {
+    "env": {
+      "browser": true
+    },
+    "plugins": [
+      "lit"
+    ],
+    "extends": [
+      "@open-wc/eslint-config",
+      "eslint-config-prettier",
+      "plugin:lit/recommended"
+    ],
+    "rules": {
+      "import/no-cycle": 1,
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true,
+          "optionalDependencies": true,
+          "peerDependencies": true,
+          "bundledDependencies": true
+        }
+      ]
+    },
+    "globals": {
+      "assert": "writable"
+    }
+  },
+  "dependencies": {
+    "web3": "1.7.4",
+    "lit": "2.2.4",
+    "@furo/ui5": "1.7.1",
+    "@furo/fbp": "6.3.2",
+    "@furo/framework": "2.2.0",
+    "@furo/layout": "2.0.8",
+    "@furo/data": "2.5.0",
+    "@furo/util": "2.0.11",
+    "@furo/route": "2.1.4",
+    "@ui5/webcomponents": "1.4.0",
+    "@ui5/webcomponents-base": "1.4.0",
+    "@ui5/webcomponents-fiori": "1.4.0",
+    "@ui5/webcomponents-icons": "1.4.0",
+    "@ui5/webcomponents-icons-tnt": "1.4.0",
+    "@ui5/webcomponents-theming": "1.4.0",
+    "@ui5/webcomponents-localization": "1.4.0"
+  },
+  "devDependencies": {
+    "@adcubum/adc-gen-translation": "1.2.0",
+    "@open-wc/building-rollup": "^1.9.4",
+    "@open-wc/eslint-config": "^4.3.0",
+    "@open-wc/prettier-config": "^1.1.0",
+    "@open-wc/semantic-dom-diff": "^0.19.3",
+    "@open-wc/testing": "^3.0.4",
+    "@webcomponents/webcomponentsjs": "^2.6.0",
+    "concurrently": "5.3.0",
+    "deepmerge": "^4.2.2",
+    "@web/dev-server": "^0.1.29",
+    "@web/test-runner": "^0.13.27",
+    "@esm-bundle/chai": "4.3.4-fix.0",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-lit": "^1.2.4",
+    "koa-proxies": "^0.12.1",
+    "lint-staged": "^10.5.2",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.67.3",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-workbox": "^5.2.1",
+    "@rollup/plugin-json": "4.1.0",
+    "swagger-jsblade-en": "^0.1.2"
+  },
+  "engines": {
+    "node": ">=14.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

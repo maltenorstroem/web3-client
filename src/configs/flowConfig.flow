@@ -1,0 +1,10 @@
+[
+  ["*", "unauthorized", "EXTERNAL_LINK: auth.html"],
+  ["*", "usertask-selected", "utsk", "*"],
+  ["*", "usertask-completed", "", "*"],
+  ["*", "deep-linked-url", "EXTERNAL_LINK_BLANK:", "*"],
+  ["*", "general-error-occurred", "message-page-error", "*"],
+  ["utsk", "close-clicked", "", "*"],
+  ["*", "history-back",  "HISTORY-BACK"],
+  ["*", "HISTORY-BACK-FALLBACK", "WINDOW-CLOSE", "*"]
+]

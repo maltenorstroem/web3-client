@@ -1,0 +1,40 @@
+apiVersion: core.platform.adcubum.com/v1alpha1
+kind: ApplicationConfig
+metadata:
+  name: %APPLICATION_ID%
+  labels:
+    app: %APPLICATION_ID%
+
+    app.kubernetes.io/name: %APPLICATION_ID%
+    app.kubernetes.io/instance: "{{ .Release.Name }}"
+    app.kubernetes.io/managed-by: "{{ .Release.Service }}"
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+
+    helm.sh/chart-name: "{{ .Chart.Name }}"
+    helm.sh/chart-version: "{{ .Chart.Version }}"
+spec:
+  env:
+    - name: TZ
+      value: "{{ .Values.container.timezone }}"
+    - name: BACKEND_SERVICE
+      value: '{{ required "a valid application.backendService is required" .Values.application.backendService }}'
+    - name: WORKER_PROCESSES
+      value: '{{ .Values.application.workerProcesses }}'
+    - name: WORKER_CONNECTIONS
+      value: '{{ .Values.application.workerConnections }}'
+    - name: CLIENT_BODY_BUFFER_SIZE
+      value: '{{ .Values.application.clientBodyBufferSize }}'
+    - name: CLIENT_HEADER_BUFFER_SIZE
+      value: '{{ .Values.application.clientHeaderBufferSize }}'
+    - name: CLIENT_MAX_BODY_SIZE
+      value: '{{ .Values.application.clientMaxBodySize }}'
+    - name: LARGE_CLIENT_HEADER_BUFFERS
+      value: '{{ .Values.application.largeClientHeaderBuffers }}'
+    - name: CLIENT_BODY_TIMEOUT
+      value: '{{ .Values.application.clientBodyTimeout }}'
+    - name: CLIENT_HEADER_TIMEOUT
+      value: '{{ .Values.application.clientHeaderTimeout }}'
+    - name: KEEPALIVE_TIMEOUT
+      value: '{{ .Values.application.keepaliveTimeout }}'
+    - name: SEND_TIMEOUT
+      value: '{{ .Values.application.sendTimeout }}'

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: %APPLICATION_ID%
+version: 0.1.0-local
+appVersion: "0.1.0-local"
+description: %APPLICATION_DESCRIPTION%

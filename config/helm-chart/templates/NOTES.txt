@@ -1,0 +1,3 @@
+%APPLICATION_NAME% successfully deployed.
+
+Now the adcubum Application Platform will manage this application!

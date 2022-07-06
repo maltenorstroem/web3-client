@@ -1,0 +1,58 @@
+apiVersion: core.platform.adcubum.com/v1alpha1
+kind: Application
+metadata:
+  name: %APPLICATION_ID%
+  labels:
+    app: %APPLICATION_ID%
+
+    app.kubernetes.io/name: %APPLICATION_ID%
+    app.kubernetes.io/instance: "{{ .Release.Name }}"
+    app.kubernetes.io/managed-by: "{{ .Release.Service }}"
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+
+    helm.sh/chart-name: "{{ .Chart.Name }}"
+    helm.sh/chart-version: "{{ .Chart.Version }}"
+spec:
+  container:
+    image: '{{ required "a valid container.image.registry is required" .Values.container.image.registry }}/%APPLICATION_CONTAINER_IMAGE%:{{ .Chart.AppVersion }}'
+    ports:
+      - name: default
+        containerPort: 8080
+        protocol: http
+        ingress:
+          http:
+            enabled: true
+            {{- if .Values.application.ingress }}
+            {{- if .Values.application.ingress.timeout }}
+            timeout: {{ .Values.application.ingress.timeout }}
+            {{- end }}
+            {{- end }}
+
+    resources:
+      requests:
+        cpu: '{{ required "a valid resources.requests.cpu is required" .Values.resources.requests.cpu }}'
+        memory: '{{ required "a valid resources.requests.memory is required" .Values.resources.requests.memory }}'
+      limits:
+        cpu: '{{ required "a valid resources.limits.cpu is required" .Values.resources.limits.cpu }}'
+        memory: '{{ required "a valid resources.limits.memory is required" .Values.resources.limits.memory }}'
+
+  configs:
+    - name: %APPLICATION_ID%
+
+  replicas: {{ required "a valid replicas is required" .Values.replicas }}
+
+  {{- if .Values.nodeName }}
+  nodeName: {{ .Values.nodeName | quote }}
+  {{- end }}
+  {{- if .Values.nodeSelector }}
+  nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 4 }}
+  {{- end }}
+  {{- if .Values.affinity }}
+  affinity:
+{{ toYaml .Values.affinity | indent 4 }}
+  {{- end }}
+  {{- if .Values.tolerations }}
+  tolerations:
+{{ toYaml .Values.tolerations | indent 4 }}
+  {{- end }}
