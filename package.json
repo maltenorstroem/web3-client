@@ -15,6 +15,7 @@
   },
   "main": "",
   "scripts": {
+    "start:bc": "ganache",
     "start:mock": "concurrently --kill-others \"web-dev-server --open\" \"./scripts/mock.sh\"",
     "start:bff": "web-dev-server --open",
     "start:build": "web-dev-server --config web-dev-server-build.config.mjs",
@@ -78,7 +79,7 @@
     "@ui5/webcomponents-localization": "1.4.0"
   },
   "devDependencies": {
-    "@adcubum/adc-gen-translation": "1.2.0",
+    "ganache": "^7.5.0",
     "@open-wc/building-rollup": "^1.9.4",
     "@open-wc/eslint-config": "^4.3.0",
     "@open-wc/prettier-config": "^1.1.0",

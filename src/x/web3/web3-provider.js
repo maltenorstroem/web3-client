@@ -16,7 +16,7 @@ class Web3Provider extends FBP(LitElement) {
   _FBPReady() {
     super._FBPReady();
     // this._FBPTraceWires();
-    this.provider = 'ws://localhost:7545';
+    this.provider = 'ws://127.0.0.1:8545';
     this.web3 = {};
   }
 
@@ -34,7 +34,7 @@ class Web3Provider extends FBP(LitElement) {
     if (provider && provider.length) {
       this.provider = provider;
     }
-    this.web3 = new Web3(Web3.givenProvider || this.provider);
+    this.web3 = new Web3(this.provider);
 
     this.web3.currentProvider.connection.onopen = e => {
       const customEvent = new Event('connection-opened', { composed: true, bubbles: true });

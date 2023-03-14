@@ -37,7 +37,7 @@ class ViewEthereum extends FBP(LitElement) {
     super();
 
     this.balanceValue = '0 ether';
-    this.accountHash = '';
+    this.accountHash = '0xB801124fa270C1fB663fF0177311ECCAD9d46D6a';
   }
 
   /**
@@ -87,6 +87,9 @@ class ViewEthereum extends FBP(LitElement) {
       .padding-lr {
         padding-right: var(--FuroUi5MediaSizeIndentationRight, 1rem);
         padding-left: var(--FuroUi5MediaSizeIndentationRight, 1rem);
+      }
+      .overflow {
+        overflow-wrap: anywhere;
       }
     `;
   }
@@ -144,7 +147,7 @@ class ViewEthereum extends FBP(LitElement) {
         >
           <ui5-button slot="action" at-click="--reconnectRequested">Reconnect</ui5-button>
         </furo-ui5-header-panel>
-        <furo-ui5-message-strip-display class="padding-lr"></furo-ui5-message-strip-display>
+        <furo-ui5-message-strip-display class="padding-lr overflow"></furo-ui5-message-strip-display>
         <furo-ui5-message-strip
           fn-show-error="--web3Failed"
           fn-show-information="--web3Closed"
@@ -155,7 +158,7 @@ class ViewEthereum extends FBP(LitElement) {
           >Connection opened</furo-ui5-toast
         >
 
-        <furo-ui5-section>
+        <furo-ui5-section flex scroll noborder>
           <furo-ui5-subsection heading="Available Accounts">
             <ui5-bar slot="action">
               <ui5-button
@@ -170,9 +173,7 @@ class ViewEthereum extends FBP(LitElement) {
               fn-list="--web3Opened, --accountRefreshRequested"
             ></web3-eth-account-list>
           </furo-ui5-subsection>
-        </furo-ui5-section>
 
-        <furo-ui5-section>
           <furo-ui5-subsection heading="Transfer ETH (Ether)">
             <furo-form-layouter>
               <ui5-input id="From" required placeholder="From"></ui5-input>
