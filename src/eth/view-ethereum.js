@@ -37,7 +37,7 @@ class ViewEthereum extends FBP(LitElement) {
     super();
 
     this.balanceValue = '0 ether';
-    this.accountHash = '0xB801124fa270C1fB663fF0177311ECCAD9d46D6a';
+    this.accountHash = '0x9fccfe7c79d794c0c52886cff7e2d243e305316d3f7bdc07b9e81e53048b6251';
   }
 
   /**
@@ -101,7 +101,7 @@ class ViewEthereum extends FBP(LitElement) {
    */
   _getBalanceFor(account) {
     this._provider.eth.getBalance(account).then(value => {
-      this.balanceValue = this._provider.utils.fromWei(value, 'ether') + ' ether';
+      this.balanceValue = `${this._provider.utils.fromWei(value, 'ether')  } ether`;
       this.requestUpdate();
     });
   }
@@ -141,9 +141,9 @@ class ViewEthereum extends FBP(LitElement) {
           <img src="../../assets/eth-diamond-black.webp" alt="Logo" slot="logo" />
         </ui5-shellbar>
 
-        <furo-ui5-header-panel
-          header-text="Your Balance: ${this.accountHash}"
-          secondary-text="${this.balanceValue}"
+        <furo-ui5-header-panel collapsed
+          header-text="Your Wallet: ${this.accountHash}"
+          secondary-text="Your Balance: ${this.balanceValue}"
         >
           <ui5-button slot="action" at-click="--reconnectRequested">Reconnect</ui5-button>
         </furo-ui5-header-panel>

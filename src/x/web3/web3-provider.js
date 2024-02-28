@@ -36,7 +36,7 @@ class Web3Provider extends FBP(LitElement) {
     }
     this.web3 = new Web3(this.provider);
 
-    this.web3.currentProvider.connection.onopen = e => {
+    this.web3.currentProvider.connection.onopen = () => {
       const customEvent = new Event('connection-opened', { composed: true, bubbles: true });
       customEvent.detail = this.web3;
       this.dispatchEvent(customEvent);
@@ -44,13 +44,13 @@ class Web3Provider extends FBP(LitElement) {
 
     this.web3.currentProvider.connection.onerror = () => {
       const customEvent = new Event('connection-failed', { composed: true, bubbles: true });
-      customEvent.detail = 'Connection to given provider failed. ' + '(' + this.provider + ')';
+      customEvent.detail = `Connection to given provider failed. ${  this.provider  }`;
       this.dispatchEvent(customEvent);
     };
 
     this.web3.currentProvider.connection.onclose = () => {
       const customEvent = new Event('connection-closed', { composed: true, bubbles: true });
-      customEvent.detail = 'Connection to given provider closed. ' + '(' + this.provider + ')';
+      customEvent.detail = `Connection to given provider closed. ${  this.provider  }`;
       this.dispatchEvent(customEvent);
     };
   }
